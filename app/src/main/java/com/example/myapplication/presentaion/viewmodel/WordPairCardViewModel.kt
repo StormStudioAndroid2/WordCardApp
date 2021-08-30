@@ -30,11 +30,9 @@ class WordPairCardViewModel() : ViewModel() {
         }
     }
 
-    fun onRightSwiped() {
+    private fun onRightSwiped() {
         onNextPressed()
-        wordPairListLiveData.value?.let { list ->
-//            list.fir
-        }
+
     }
 
     fun onFalseSwiped() {
@@ -44,7 +42,6 @@ class WordPairCardViewModel() : ViewModel() {
     fun onCardDisappeared(position: Int) {
         if (position != -1) {
             wordPairListLiveData.value?.let {
-//                it[position]
                 if (it[position] == it.last()) {
                     _isEndOfListLiveData.postValue(true)
                 }

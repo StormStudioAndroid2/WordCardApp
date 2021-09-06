@@ -3,16 +3,16 @@ package com.example.myapplication.presentaion.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
+import com.example.myapplication.domain.model.ResultStatistic
 import com.example.myapplication.domain.model.WordPair
 import com.yuyakaido.android.cardstackview.Direction
-import java.text.FieldPosition
 
 class WordPairCardViewModel() : ViewModel() {
 
     private val _wordPairListLiveData = MutableLiveData<MutableList<WordPair>>()
     val wordPairListLiveData: LiveData<MutableList<WordPair>>
         get() = _wordPairListLiveData
+    val resultStatistic = ResultStatistic()
 
     private var _isEndOfListLiveData: MutableLiveData<Boolean> = MutableLiveData(false)
     val isEndOfListLiveData: LiveData<Boolean>
@@ -31,12 +31,11 @@ class WordPairCardViewModel() : ViewModel() {
     }
 
     private fun onRightSwiped() {
-        onNextPressed()
-
+        resultStatistic.rightAnswers++
     }
 
     fun onFalseSwiped() {
-        onNextPressed()
+        resultStatistic.wrongAnswers++
     }
 
     fun onCardDisappeared(position: Int) {

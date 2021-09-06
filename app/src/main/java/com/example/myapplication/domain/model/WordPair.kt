@@ -8,5 +8,6 @@ data class WordPair(
     var frontWord: String,
     var backWord: String,
     var wordPackageOwnerId: Long,
-    var wordPairId: Long
-) :Parcelable
+    var wordPairId: Long,
+    var answer: AnswerType
+) : Parcelable

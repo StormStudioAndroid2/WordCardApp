@@ -37,7 +37,7 @@ class WordPairListFragment : Fragment() {
     }
     private lateinit var titleTextView: TextView
     private var wordPackageId: Long? = null
-    private val wordPairListAdapter = WordPairListAdapter(listOf(WordPair("fs", "sfsd", 0, 0)))
+    private val wordPairListAdapter = WordPairListAdapter(listOf())
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {

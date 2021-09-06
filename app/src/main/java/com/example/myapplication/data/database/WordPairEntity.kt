@@ -3,6 +3,7 @@ package com.example.myapplication.data.database
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.example.myapplication.domain.model.AnswerType
 import com.example.myapplication.domain.model.WordPair
 
 @Entity(tableName = "word_pair")
@@ -18,6 +19,7 @@ data class WordPairEntity(
         frontWord = this.frontWord,
         backWord = this.backWord,
         wordPackageOwnerId = this.wordPackageOwnerId,
-        wordPairId = this.wordPairId
+        wordPairId = this.wordPairId,
+        answer = AnswerType.NOT_ANSWER
     )
 }

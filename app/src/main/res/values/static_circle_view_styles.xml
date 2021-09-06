@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="StaticCircleViewDefaultStyle">
+        <item name="right">75</item>
+        <item name="wrong">15</item>
+        <item name="notAnswer">10</item>
+        <item name="rightColor">@android:color/holo_green_dark</item>
+        <item name="wrongColor">@android:color/holo_red_light</item>
+        <item name="notAnswerColor">@android:color/darker_gray</item>
+        <item name="fineResultText">Отлично!</item>
+        <item name="goodResultText">Хорошо!</item>
+        <item name="acceptableResultText">Удовлетворительно</item>
+        <item name="badResultText">Плохо</item>
+    </style>
+
+
+</resources>

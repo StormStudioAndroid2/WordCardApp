@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="StaticCircleView">
+        <attr name="right" format="integer" />
+        <attr name="wrong" format="integer" />
+        <attr name="notAnswer" format="integer" />
+        <attr name="rightColor" format="color" />
+        <attr name="wrongColor" format="color" />
+        <attr name="notAnswerColor" format="color" />
+        <attr name="fineResultText" format="string"/>
+        <attr name="goodResultText" format="string"/>
+        <attr name="acceptableResultText" format="string"/>
+        <attr name="badResultText" format="string"/>
+
+    </declare-styleable>
+
+    <attr name="staticCircleViewDefaultAttr" format="reference" />
+</resources>

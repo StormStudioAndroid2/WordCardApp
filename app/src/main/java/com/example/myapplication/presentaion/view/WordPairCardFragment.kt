@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.example.myapplication.R
+import com.example.myapplication.domain.model.ResultStatistic
 import com.example.myapplication.domain.model.WordPackage
 import com.example.myapplication.domain.model.WordPair
 import com.example.myapplication.presentaion.adapter.WordStackAdapter
@@ -20,11 +21,10 @@ import com.yuyakaido.android.cardstackview.Direction
 private const val CARD_PACKAGE_TAG = "CardPackage"
 
 interface WordPairCardActivity {
-    fun onWordPairListEnded()
+    fun onWordPairListEnded(resultStatistic: ResultStatistic)
 }
 
 class WordPairCardFragment : Fragment(), CardStackListener {
-    // TODO: Rename and change types of parameters
     private var wordPackage: WordPackage? = null
     private val wordPairCardViewModel: WordPairCardViewModel by viewModels()
     private val adapter = WordStackAdapter(listOf())
@@ -101,10 +101,9 @@ class WordPairCardFragment : Fragment(), CardStackListener {
     private fun setIsEndStackObserver() {
         val observer = Observer<Boolean> { isEnd ->
             if (isEnd) {
-                (activity as? WordPairCardActivity)?.onWordPairListEnded()
+                (activity as? WordPairCardActivity)?.onWordPairListEnded(wordPairCardViewModel.resultStatistic)
             }
         }
         wordPairCardViewModel.isEndOfListLiveData.observe(viewLifecycleOwner, observer)
-
     }
 }

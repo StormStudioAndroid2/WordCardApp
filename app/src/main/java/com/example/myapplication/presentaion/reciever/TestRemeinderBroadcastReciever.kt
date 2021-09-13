@@ -18,7 +18,6 @@ const val CHANNEL_ID = 101
 class TestNotificationBroadcastReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context?, intent: Intent?) {
-        Log.i("RECIEVE", "Im in receiver!")
         if (intent?.action == Intent.ACTION_BOOT_COMPLETED || intent?.action == Intent.ACTION_REBOOT || intent?.action == Intent.ACTION_LOCKED_BOOT_COMPLETED) {
             context?.let {
                 showNotification(context)
@@ -35,7 +34,7 @@ class TestNotificationBroadcastReceiver : BroadcastReceiver() {
             NotificationCompat.Builder(context, CHANNEL_ID.toString())
                 .setSmallIcon(R.drawable.ic_baseline_collections_24)
                 .setContentTitle("Повторенье - мать ученья!")
-                .setContentText("Не забывай повторять слова, чтобы их не забыть!")
+                .setContentText("Повтори слова в нашем приложении, чтобы их не забыть!")
         mBuilder.setContentIntent(contentIntent)
         mBuilder.setDefaults(Notification.DEFAULT_SOUND)
         mBuilder.setAutoCancel(true)

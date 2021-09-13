@@ -1,9 +1,11 @@
 package com.example.myapplication.data.database
 
+import android.app.Application
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import javax.inject.Inject
 
 
 @Database(entities = arrayOf(WordPackageEntity::class, WordPairEntity::class), version = 1)

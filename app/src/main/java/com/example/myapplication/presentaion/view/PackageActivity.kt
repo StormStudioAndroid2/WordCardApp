@@ -5,10 +5,12 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
+import com.example.myapplication.App
 import com.example.myapplication.R
 import com.example.myapplication.data.repository.WordRoomRepository
 import com.example.myapplication.domain.model.ResultStatistic
 import com.example.myapplication.presentaion.viewmodel.PackageViewModel
+import javax.inject.Inject
 
 private const val PACKAGE_ID_TAG = "PackageIdTag"
 private const val WORD_LIST_FRAGMENT = "WordListFragment"
@@ -20,13 +22,13 @@ private const val CREATE_WORD_PAIR_DIALOG_TAG = "CreateWordPairDialogTag"
 class PackageActivity : AppCompatActivity(), WordPairActivity, CreateWordPairCallback,
     WordPairCardActivity {
 
-    private val packageViewModel: PackageViewModel by viewModels() {
-        PackageViewModel.PackageFactory(WordRoomRepository())
-    }
+    @Inject
+    lateinit var packageViewModel: PackageViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_package)
+        (application as App).appComponent.packageComponent().create().inject(this)
         val id = intent.getLongExtra(PACKAGE_ID_TAG, -1)
         if (id != -1L) {
             packageViewModel.loadPackage(id)

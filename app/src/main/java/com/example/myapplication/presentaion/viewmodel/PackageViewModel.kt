@@ -7,8 +7,9 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import java.lang.Exception
 import java.lang.NullPointerException
+import javax.inject.Inject
 
-class PackageViewModel(private val iWordRepository: IWordRepository) : ViewModel() {
+class PackageViewModel @Inject constructor(val iWordRepository: IWordRepository) : ViewModel() {
     private val _wordPackageLiveData: MutableLiveData<WordPackage> =
         MutableLiveData<WordPackage>()
 

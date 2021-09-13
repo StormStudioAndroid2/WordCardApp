@@ -11,11 +11,13 @@ import com.example.myapplication.domain.model.WordPackage
 import com.example.myapplication.domain.model.WordPair
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import javax.inject.Inject
 
-class WordRoomRepository : IWordRepository {
+class WordRoomRepository(private val wordRoomDatabase: WordRoomDatabase) : IWordRepository {
+
 
     override fun getAllPackages(): Flow<List<WordPackage>>? {
-        return App.instance?.getDatabase()?.wordPackageDao()?.getAll()?.map { list ->
+        return wordRoomDatabase.wordPackageDao().getAll().map { list ->
             list.map { wordPackageEntity -> wordPackageEntity.convertToDomain() }
         }
     }
@@ -26,9 +28,9 @@ class WordRoomRepository : IWordRepository {
             wordPackage.frontLanguage,
             wordPackage.backLanguage
         )
-        App.instance?.getDatabase()?.wordPackageDao()?.insertAll(
+        wordRoomDatabase.wordPackageDao().insertAll(
             entity
-        ) ?: return false
+        )
         wordPackage.id = entity.wordPackageId
         return true
     }
@@ -36,7 +38,7 @@ class WordRoomRepository : IWordRepository {
     override fun getPackageWithWordsById(
         wordPackageId: Long
     ): Flow<WordPackage>? {
-        return App.instance?.getDatabase()?.wordPackageDao()?.getWordPackageAndPairs(wordPackageId)
+        return wordRoomDatabase.wordPackageDao().getWordPackageAndPairs(wordPackageId)
             ?.map { value: WordPackageWithWords ->
                 WordPackage(
                     value.wordPackageEntity.wordPackageId,
@@ -52,6 +54,6 @@ class WordRoomRepository : IWordRepository {
         val entity = WordPairEntity(
             ownerId, frontWord, backWord
         )
-        App.instance?.getDatabase()?.wordPairDao()?.insertAll(entity)
+        wordRoomDatabase.wordPairDao().insertAll(entity)
     }
 }

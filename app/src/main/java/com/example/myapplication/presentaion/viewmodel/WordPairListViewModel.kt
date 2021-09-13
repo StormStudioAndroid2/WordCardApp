@@ -6,8 +6,9 @@ import com.example.myapplication.domain.model.WordPackage
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import java.lang.Exception
+import javax.inject.Inject
 
-class WordPairListViewModel(
+class WordPairListViewModel @Inject constructor(
     private val iWordRepository: IWordRepository
 ) : ViewModel() {
     private val _WordListPackage: MutableLiveData<WordPackage> =
@@ -29,23 +30,4 @@ class WordPairListViewModel(
         }
     }
 
-    fun addNewWordPair(packageId: Long, frontWord: String, backWord: String) {
-        viewModelScope.launch {
-            try {
-                iWordRepository.addWordPair(frontWord, backWord, packageId)
-            } catch (ex: Exception) {
-
-            }
-        }
-    }
-
-    class WordFactory(
-        private val iWordRepository: IWordRepository,
-    ) :
-        ViewModelProvider.Factory {
-        @Suppress("UNCHECKED_CAST")
-        override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            return WordPairListViewModel(iWordRepository) as T
-        }
-    }
 }

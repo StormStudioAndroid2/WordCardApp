@@ -6,6 +6,7 @@ import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.myapplication.App
 import com.example.myapplication.R
 import com.example.myapplication.presentaion.adapter.WordPackageAdapter
 import com.example.myapplication.presentaion.adapter.WordPackageAdapterCallback
@@ -13,6 +14,7 @@ import com.example.myapplication.domain.model.WordPackage
 import com.example.myapplication.presentaion.viewmodel.MainViewModel
 import com.example.myapplication.data.repository.WordRoomRepository
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import javax.inject.Inject
 
 class MainActivity : AppCompatActivity(), WordPackageAdapterCallback, CreatePackageCallback {
 
@@ -23,13 +25,14 @@ class MainActivity : AppCompatActivity(), WordPackageAdapterCallback, CreatePack
         val CREATE_PACKAGE_DIALOG_TAG = "CreatePackageDialogTag"
     }
 
-    private val mainViewModel: MainViewModel by viewModels() {
-        MainViewModel.MainFactory(WordRoomRepository())
-    }
+    @Inject
+    lateinit var mainViewModel: MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        val appComponent = (applicationContext as App).appComponent
+        appComponent.mainComponent().create().inject(this)
 
         recyclerView = findViewById(R.id.package_recycler_view)
         packageAdapter = WordPackageAdapter(mutableListOf(), this)

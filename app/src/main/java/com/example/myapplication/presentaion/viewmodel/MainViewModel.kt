@@ -7,8 +7,9 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import java.lang.Exception
 import java.lang.NullPointerException
+import javax.inject.Inject
 
-class MainViewModel(private val roomRepository: IWordRepository) : ViewModel() {
+class MainViewModel @Inject constructor(private val roomRepository: IWordRepository) : ViewModel() {
     private val _wordPackageListLiveData = MutableLiveData<List<WordPackage>>()
     val wordPackageListLiveData: LiveData<List<WordPackage>>
         get() = _wordPackageListLiveData
@@ -44,16 +45,6 @@ class MainViewModel(private val roomRepository: IWordRepository) : ViewModel() {
             } catch (ex: Exception) {
 
             }
-        }
-    }
-
-    class MainFactory(
-        private val iWordRepository: IWordRepository,
-    ) :
-        ViewModelProvider.Factory {
-        @Suppress("UNCHECKED_CAST")
-        override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            return MainViewModel(iWordRepository) as T
         }
     }
 }

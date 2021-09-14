@@ -1,22 +1,17 @@
 package com.example.myapplication.data.repository
 
-import android.content.Context
-import android.util.Log
-import com.example.myapplication.App
 import com.example.myapplication.data.database.WordPackageEntity
 import com.example.myapplication.data.database.WordPackageWithWords
 import com.example.myapplication.data.database.WordPairEntity
 import com.example.myapplication.data.database.WordRoomDatabase
 import com.example.myapplication.domain.model.WordPackage
-import com.example.myapplication.domain.model.WordPair
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import javax.inject.Inject
 
 class WordRoomRepository(private val wordRoomDatabase: WordRoomDatabase) : IWordRepository {
 
 
-    override fun getAllPackages(): Flow<List<WordPackage>>? {
+    override fun getAllPackages(): Flow<List<WordPackage>> {
         return wordRoomDatabase.wordPackageDao().getAll().map { list ->
             list.map { wordPackageEntity -> wordPackageEntity.convertToDomain() }
         }
@@ -37,9 +32,9 @@ class WordRoomRepository(private val wordRoomDatabase: WordRoomDatabase) : IWord
 
     override fun getPackageWithWordsById(
         wordPackageId: Long
-    ): Flow<WordPackage>? {
+    ): Flow<WordPackage> {
         return wordRoomDatabase.wordPackageDao().getWordPackageAndPairs(wordPackageId)
-            ?.map { value: WordPackageWithWords ->
+            .map { value: WordPackageWithWords ->
                 WordPackage(
                     value.wordPackageEntity.wordPackageId,
                     value.wordPackageEntity.name,

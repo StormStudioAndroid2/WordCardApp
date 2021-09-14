@@ -12,6 +12,7 @@
         <item name="goodResultText">Хорошо!</item>
         <item name="acceptableResultText">Удовлетворительно</item>
         <item name="badResultText">Плохо</item>
+        <item name="android:textSize">30sp</item>
     </style>
 
 

@@ -80,6 +80,7 @@ class StatisticCircleView(context: Context, attrs: AttributeSet) : View(context,
                 rightAnswerPercent /= 100f
                 wrongAnswerPercent /= 100f
                 notAnswerPercent /= 100f
+                paintText.textSize = getDimension(R.styleable.StaticCircleView_android_textSize, 80F)
                 badText = getString(R.styleable.StaticCircleView_badResultText).toString()
                 acceptableText =
                     getString(R.styleable.StaticCircleView_acceptableResultText).toString()

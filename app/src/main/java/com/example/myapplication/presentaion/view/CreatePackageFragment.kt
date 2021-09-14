@@ -18,7 +18,6 @@ interface CreatePackageCallback {
 class CreatePackageFragment : DialogFragment() {
 
 
-
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return activity?.let {
 
@@ -30,7 +29,7 @@ class CreatePackageFragment : DialogFragment() {
                 // Add action buttons
                 .setPositiveButton(R.string.yes, null)
                 .setNegativeButton(R.string.cancel,
-                    DialogInterface.OnClickListener { dialog, id ->
+                    DialogInterface.OnClickListener { _, _ ->
                         getDialog()?.cancel()
                     })
             builder.create().apply {

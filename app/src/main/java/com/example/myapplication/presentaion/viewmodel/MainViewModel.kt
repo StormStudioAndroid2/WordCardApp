@@ -1,8 +1,10 @@
 package com.example.myapplication.presentaion.viewmodel
 
+import android.view.View
 import androidx.lifecycle.*
 import com.example.myapplication.domain.model.WordPackage
 import com.example.myapplication.data.repository.IWordRepository
+import com.example.myapplication.presentaion.utils.ViewState
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import java.lang.Exception
@@ -13,26 +15,27 @@ class MainViewModel @Inject constructor(private val roomRepository: IWordReposit
     private val _wordPackageListLiveData = MutableLiveData<List<WordPackage>>()
     val wordPackageListLiveData: LiveData<List<WordPackage>>
         get() = _wordPackageListLiveData
-    private val _isLoadingLiveData = MutableLiveData<Boolean>()
-    val isLoadingLiveData: LiveData<Boolean>
-        get() = _isLoadingLiveData
-    private val _exceptionLiveData = MutableLiveData<Exception>()
-    val exceptionLiveData: LiveData<Exception>
-        get() = _exceptionLiveData
+    private val _loadPackageStateLiveData = MutableLiveData<ViewState>()
+    val loadPackageStateLiveData: LiveData<ViewState>
+        get() = _loadPackageStateLiveData
+    private val _insertPackageStateLiveData = MutableLiveData<ViewState>()
+    val insertPackageStateLiveData: LiveData<ViewState>
+        get() = _insertPackageStateLiveData
 
+    private var allPackages: List<WordPackage> = listOf()
 
     fun loadWordPackagesFromDatabase() {
         viewModelScope.launch {
             try {
+                _loadPackageStateLiveData.postValue(ViewState.LOADING)
                 val list = roomRepository.getAllPackages()
                 list?.collect { flowList ->
-                    _isLoadingLiveData.postValue(true)
+                    allPackages = flowList
                     _wordPackageListLiveData.postValue(flowList)
-                    _isLoadingLiveData.postValue(false)
+                    _loadPackageStateLiveData.postValue(ViewState.LOADED)
                 } ?: throw NullPointerException("Cannot load from database because null variable!")
             } catch (ex: Exception) {
-                _isLoadingLiveData.postValue(false)
-                _exceptionLiveData.postValue(ex)
+                _loadPackageStateLiveData.postValue(ViewState.ERROR)
             }
         }
     }
@@ -40,11 +43,16 @@ class MainViewModel @Inject constructor(private val roomRepository: IWordReposit
     fun insertWordPackage(wordPackage: WordPackage) {
         viewModelScope.launch {
             try {
+                _insertPackageStateLiveData.postValue(ViewState.LOADING)
                 val resultInsert = roomRepository.addPackage(wordPackage)
                 if (!resultInsert) throw NullPointerException("Cannot insert in database because null variable!")
             } catch (ex: Exception) {
-
+                _insertPackageStateLiveData.postValue(ViewState.ERROR)
             }
         }
+    }
+
+    fun onSearchEditTextChanged(searchName: String) {
+        _wordPackageListLiveData.postValue(allPackages.filter { p -> p.name.contains(searchName) })
     }
 }

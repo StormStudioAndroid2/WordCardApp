@@ -25,4 +25,7 @@
     <string name="finish_test_button">Закончить тестирование</string>
     <string name="channel_name">Напоминания</string>
     <string name="channel_description">Напомним вам, чтобы вы повторили слова и их перевод</string>
+    <string name="error_message">Произошла ошибка при загрузке данных</string>
+    <string name="search_hint">Поиск набора</string>
+    <string name="error_message_insert">Невозможно сохранить набор!</string>
 </resources>

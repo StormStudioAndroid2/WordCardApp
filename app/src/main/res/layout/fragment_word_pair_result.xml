@@ -45,6 +45,7 @@
         app:wrongColor="@android:color/holo_red_light"
         tools:notAnswer="5"
         tools:right="90"
+        android:textSize = "30sp"
         tools:wrong="5" />
 
     <TextView

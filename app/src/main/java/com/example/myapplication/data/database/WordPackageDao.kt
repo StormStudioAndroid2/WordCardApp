@@ -22,6 +22,9 @@ interface WordPackageDao {
     @Query("SELECT * FROM word_package")
     fun getWordPackageAndPairs(): Flow<List<WordPackageWithWords>>
 
+    @Query("DELETE FROM word_package WHERE word_package_name = :name")
+    suspend fun deleteByUserId(name: String)
+
     @Transaction
     @Query("SELECT * FROM word_package WHERE wordPackageId = :wordPackageId ")
     fun getWordPackageAndPairs(wordPackageId: Long): Flow<WordPackageWithWords>

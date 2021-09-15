@@ -4,7 +4,7 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-class ResultStatistic(
+open class ResultStatistic(
     var rightAnswers: Int = 0,
     var wrongAnswers: Int = 0,
     var noAnswer: Int = 0

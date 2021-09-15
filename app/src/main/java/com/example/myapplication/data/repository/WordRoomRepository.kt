@@ -1,5 +1,6 @@
 package com.example.myapplication.data.repository
 
+import android.util.Log
 import com.example.myapplication.data.database.WordPackageEntity
 import com.example.myapplication.data.database.WordPackageWithWords
 import com.example.myapplication.data.database.WordPairEntity
@@ -7,6 +8,9 @@ import com.example.myapplication.data.database.WordRoomDatabase
 import com.example.myapplication.domain.model.WordPackage
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import java.lang.Exception
+
+const val ERROR_ROOM = "ERROR_ROOM"
 
 class WordRoomRepository(private val wordRoomDatabase: WordRoomDatabase) : IWordRepository {
 
@@ -45,10 +49,16 @@ class WordRoomRepository(private val wordRoomDatabase: WordRoomDatabase) : IWord
             }
     }
 
-    override suspend fun addWordPair(frontWord: String, backWord: String, ownerId: Long) {
+    override suspend fun addWordPair(frontWord: String, backWord: String, ownerId: Long): Boolean {
         val entity = WordPairEntity(
             ownerId, frontWord, backWord
         )
-        wordRoomDatabase.wordPairDao().insertAll(entity)
+        return try {
+            wordRoomDatabase.wordPairDao().insertAll(entity)
+            true
+        } catch (ex: Exception) {
+            Log.e(ERROR_ROOM, ex.stackTraceToString())
+            false
+        }
     }
 }

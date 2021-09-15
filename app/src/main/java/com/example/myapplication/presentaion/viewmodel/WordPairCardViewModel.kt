@@ -34,7 +34,7 @@ class WordPairCardViewModel() : ViewModel() {
         resultStatistic.rightAnswers++
     }
 
-    fun onFalseSwiped() {
+    private fun onFalseSwiped() {
         resultStatistic.wrongAnswers++
     }
 
@@ -46,9 +46,5 @@ class WordPairCardViewModel() : ViewModel() {
                 }
             }
         }
-    }
-
-    private fun onNextPressed() {
-
     }
 }

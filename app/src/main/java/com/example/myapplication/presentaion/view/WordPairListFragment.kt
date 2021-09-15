@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.fragment.app.viewModels
@@ -19,12 +20,14 @@ import com.example.myapplication.data.repository.WordRoomRepository
 import com.example.myapplication.domain.model.WordPackage
 import com.example.myapplication.domain.model.WordPair
 import com.example.myapplication.presentaion.adapter.WordPairListAdapter
+import com.example.myapplication.presentaion.utils.ViewState
 import com.example.myapplication.presentaion.viewmodel.MainViewModel
 import com.example.myapplication.presentaion.viewmodel.WordPairListViewModel
 import java.lang.NullPointerException
 import javax.inject.Inject
 
 private const val WORD_PACKAGE_ID = "WordPackageId"
+const val SPAN_COUNT = 2
 
 interface WordPairActivity {
     fun showDialog()
@@ -39,6 +42,11 @@ class WordPairListFragment : Fragment() {
     private lateinit var titleTextView: TextView
     private var wordPackageId: Long? = null
     private val wordPairListAdapter = WordPairListAdapter(listOf())
+
+
+    private lateinit var errorTextView: TextView
+    private lateinit var progressView: ProgressBar
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         (activity?.application as App).appComponent.wordPairComponent().create().inject(this)
@@ -57,7 +65,7 @@ class WordPairListFragment : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_word_pair_list, container, false)
         val recyclerView: RecyclerView = view.findViewById(R.id.word_pair_recycler_view)
-        recyclerView.layoutManager = GridLayoutManager(activity, 2)
+        recyclerView.layoutManager = GridLayoutManager(activity, SPAN_COUNT)
         recyclerView.adapter = wordPairListAdapter
 
         titleTextView = view.findViewById(R.id.title_text_view)
@@ -72,7 +80,10 @@ class WordPairListFragment : Fragment() {
             (activity as? WordPairActivity)?.checkKnowledgeButtonPressed()
                 ?: throw TypeCastException("Cannot cast activity to interface!")
         }
+        errorTextView = view.findViewById(R.id.error_text_view)
+        progressView = view.findViewById(R.id.progress_view)
         setWordPairListObserver()
+        setViewStateObserver()
         return view
     }
 
@@ -92,5 +103,25 @@ class WordPairListFragment : Fragment() {
             titleTextView.text = resources.getString(R.string.title_package_text, wordPackage.name)
         }
         wordPairListViewModel.wordListPackage.observe(viewLifecycleOwner, observer)
+    }
+
+    private fun setViewStateObserver() {
+        val observer = Observer<ViewState> { viewstate ->
+            when (viewstate) {
+                ViewState.ERROR -> {
+                    errorTextView.visibility = View.VISIBLE
+                    progressView.visibility = View.GONE
+                }
+                ViewState.LOADING -> {
+                    errorTextView.visibility = View.GONE
+                    progressView.visibility = View.VISIBLE
+                }
+                ViewState.LOADED -> {
+                    errorTextView.visibility = View.GONE
+                    progressView.visibility = View.GONE
+                }
+            }
+        }
+        wordPairListViewModel.loadViewStateLiveData.observe(this, observer)
     }
 }

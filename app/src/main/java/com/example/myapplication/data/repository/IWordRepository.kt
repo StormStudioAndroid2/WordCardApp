@@ -10,7 +10,7 @@ interface IWordRepository {
 
     suspend fun addPackage(wordPackage: WordPackage) : Boolean
 
-    suspend fun addWordPair(frontWord: String, backWord: String, ownerId: Long)
+    suspend fun addWordPair(frontWord: String, backWord: String, ownerId: Long): Boolean
 
     fun getPackageWithWordsById(
         wordPackageId: Long

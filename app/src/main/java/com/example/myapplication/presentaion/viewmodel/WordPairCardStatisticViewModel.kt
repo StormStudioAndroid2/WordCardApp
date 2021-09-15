@@ -10,7 +10,6 @@ import com.example.myapplication.domain.model.WordPackage
 
 class WordPairCardStatisticViewModel : ViewModel() {
 
-    var resultStatistic = ResultStatistic()
     private var _rightAnswerPercent = MutableLiveData<Float>(0f)
     val rightAnswerPercent: LiveData<Float>
         get() = _rightAnswerPercent
@@ -35,6 +34,4 @@ class WordPairCardStatisticViewModel : ViewModel() {
                 .toFloat() / resultStatistic.count().toFloat()
         )
     }
-
-
 }

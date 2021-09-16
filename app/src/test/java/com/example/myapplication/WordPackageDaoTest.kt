@@ -98,6 +98,27 @@ class WordPackageDaoTest {
     @InternalCoroutinesApi
     @Test
     @Throws(Exception::class)
+    fun testUpdateDao() = dispatcher.runBlockingTest {
+        val wordPackageEntity: WordPackageEntity = createWordPackage(title = "title1").apply {
+            wordPackageId = 1
+        }
+        wordPackageDao.getAll().asLiveData().observeForever(wordPackageObserver)
+        wordPackageDao.insertAll(wordPackageEntity)
+        val wordPackageEntity1 = createWordPackage(title = "title2").apply {
+            wordPackageId = 1
+        }
+        wordPackageDao.update(wordPackageEntity1)
+        val inOrder = Mockito.inOrder(
+            wordPackageObserver,
+        )
+        inOrder.verify(wordPackageObserver).onChanged(listOf(wordPackageEntity))
+        inOrder.verify(wordPackageObserver).onChanged(listOf(wordPackageEntity1))
+        inOrder.verifyNoMoreInteractions()
+    }
+
+    @InternalCoroutinesApi
+    @Test
+    @Throws(Exception::class)
     fun testDeleteDao() = dispatcher.runBlockingTest {
         val wordPackageEntity: WordPackageEntity = createWordPackage(title = "title1").apply {
             wordPackageId = 1

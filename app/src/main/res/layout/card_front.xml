@@ -5,19 +5,19 @@
     android:id="@+id/card_front_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="8dp"
-    android:elevation="8dp"
-    app:cardElevation="8dp">
+    android:layout_margin="@dimen/margin_medium"
+    android:elevation="@dimen/margin_medium"
+    app:cardElevation="@dimen/margin_medium">
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="8dp">
+        android:layout_margin="@dimen/margin_medium">
 
         <TextView
             android:id="@+id/card_front"
-            android:layout_width="150dp"
-            android:layout_height="100dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:gravity="center"
             android:textAlignment="center"
             app:layout_constraintBottom_toBottomOf="parent"

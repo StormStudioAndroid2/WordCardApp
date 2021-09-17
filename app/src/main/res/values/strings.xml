@@ -29,6 +29,8 @@
     <string name="search_hint">Поиск набора</string>
     <string name="error_message_insert">Невозможно сохранить набор!</string>
     <string name="menu_list">Наборы</string>
-    <string name="menu_settings">Настройкии</string>
+    <string name="menu_settings">Настройки</string>
     <string name="dark_theme_setting_string">Включить темную тему</string>
+    <string name="first_language">Первый язык: %s</string>
+    <string name="second_language">Второй язык: %s</string>
 </resources>

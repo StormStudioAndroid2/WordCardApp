@@ -35,6 +35,7 @@ class SettingFragment : Fragment() {
 
         val view = inflater.inflate(R.layout.fragment_settings, container, false)
         val switch = view.findViewById<SwitchCompat>(R.id.dark_setting_switch)
+        setCheckedSwitch(switch)
         switch.setOnCheckedChangeListener { buttonView, isChecked ->
             if (!isChecked) {
                 val sharedPreferences =

@@ -4,12 +4,16 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/enste/AndroidStudioProjects/MyApplication15/app/src/main/res/layout/activity_main.xml" value="0.264" />
+        <entry key="..\:/Users/enste/AndroidStudioProjects/MyApplication15/app/src/main/res/layout/card_front.xml" value="0.2" />
+        <entry key="..\:/Users/enste/AndroidStudioProjects/MyApplication15/app/src/main/res/layout/create_package_layout.xml" value="0.264" />
+        <entry key="..\:/Users/enste/AndroidStudioProjects/MyApplication15/app/src/main/res/layout/create_word_pair_layout.xml" value="0.4" />
         <entry key="..\:/Users/enste/AndroidStudioProjects/MyApplication15/app/src/main/res/layout/fragment_settings.xml" value="0.4" />
-        <entry key="..\:/Users/enste/AndroidStudioProjects/MyApplication15/app/src/main/res/layout/fragment_word_pair_card.xml" value="0.13287037037037036" />
-        <entry key="..\:/Users/enste/AndroidStudioProjects/MyApplication15/app/src/main/res/layout/fragment_word_pair_list.xml" value="0.1" />
-        <entry key="..\:/Users/enste/AndroidStudioProjects/MyApplication15/app/src/main/res/layout/fragment_word_pair_result.xml" value="0.1" />
-        <entry key="..\:/Users/enste/AndroidStudioProjects/MyApplication15/app/src/main/res/layout/word_package_layout.xml" value="0.1" />
-        <entry key="..\:/Users/enste/AndroidStudioProjects/MyApplication15/app/src/main/res/layout/wordpackage_list_layout.xml" value="0.2" />
+        <entry key="..\:/Users/enste/AndroidStudioProjects/MyApplication15/app/src/main/res/layout/fragment_word_pair_card.xml" value="0.4" />
+        <entry key="..\:/Users/enste/AndroidStudioProjects/MyApplication15/app/src/main/res/layout/fragment_word_pair_list.xml" value="0.2" />
+        <entry key="..\:/Users/enste/AndroidStudioProjects/MyApplication15/app/src/main/res/layout/fragment_word_pair_result.xml" value="0.2" />
+        <entry key="..\:/Users/enste/AndroidStudioProjects/MyApplication15/app/src/main/res/layout/word_package_layout.xml" value="0.264" />
+        <entry key="..\:/Users/enste/AndroidStudioProjects/MyApplication15/app/src/main/res/layout/word_pair_item_card.xml" value="0.176" />
+        <entry key="..\:/Users/enste/AndroidStudioProjects/MyApplication15/app/src/main/res/layout/wordpackage_list_layout.xml" value="0.176" />
         <entry key="..\:/Users/enste/AndroidStudioProjects/MyApplication15/app/src/main/res/menu/nav_drawer_menu.xml" value="0.2" />
       </map>
     </option>

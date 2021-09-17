@@ -10,7 +10,7 @@
     <com.yuyakaido.android.cardstackview.CardStackView
         android:id="@+id/card_stack_view"
         android:layout_width="0dp"
-        android:layout_height="300dp"
+        android:layout_height="@dimen/stack_height"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -25,11 +25,11 @@
         android:text="@string/word_pair_hint"
         app:layout_constraintTop_toBottomOf="@+id/card_stack_view"
         android:textColor="@color/text_color"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
+        android:layout_marginLeft="@dimen/margin_medium"
+        android:layout_marginRight="@dimen/margin_medium"
         android:gravity="center"
-        android:paddingLeft="8dp"
-        android:paddingRight="8dp"
-        android:textSize="14sp"
+        android:paddingLeft="@dimen/margin_medium"
+        android:paddingRight="@dimen/margin_medium"
+        android:textSize="@dimen/legend_text_size"
         />
 </androidx.constraintlayout.widget.ConstraintLayout>

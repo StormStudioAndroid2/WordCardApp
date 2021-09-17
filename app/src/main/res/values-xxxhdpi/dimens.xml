@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="margin_large">22dp</dimen>
+    <dimen name="margin_medium">10dp</dimen>
+    <dimen name="margin_small">6dp</dimen>
+    <dimen name="card_list_width">200dp</dimen>
+    <dimen name="card_list_height">134dp</dimen>
+    <dimen name="wordpackage_item_title_size">22sp</dimen>
+    <dimen name="wordpackage_title_size">26sp</dimen>
+    <dimen name="wordpackage_image_size">86dp</dimen>
+    <dimen name="statistic_text_size">38sp</dimen>
+    <dimen name="legend_text_size">22sp</dimen>
+    <dimen name="stack_height">400dp</dimen>
+</resources>

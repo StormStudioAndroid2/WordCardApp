@@ -21,7 +21,7 @@ class WordPackageAdapter(
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val titleTextView: TextView = view.findViewById(R.id.language_title)
         val frontLanguageTextView: TextView = view.findViewById(R.id.language_front)
-        val backLanguageTextView: TextView = view.findViewById(R.id.language_front)
+        val backLanguageTextView: TextView = view.findViewById(R.id.language_back)
 
         init {
             view.setOnClickListener {
@@ -38,8 +38,14 @@ class WordPackageAdapter(
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         viewHolder.titleTextView.text = dataSet[position].name
-        viewHolder.frontLanguageTextView.text = dataSet[position].frontLanguage
-        viewHolder.backLanguageTextView.text = dataSet[position].backLanguage
+        viewHolder.frontLanguageTextView.text = viewHolder.itemView.context.getString(
+            R.string.first_language,
+            dataSet[position].frontLanguage
+        )
+        viewHolder.backLanguageTextView.text = viewHolder.itemView.context.getString(
+            R.string.second_language,
+            dataSet[position].backLanguage
+        )
     }
 
     override fun getItemCount() = dataSet.size

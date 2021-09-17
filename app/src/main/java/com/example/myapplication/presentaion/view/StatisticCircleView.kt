@@ -7,6 +7,21 @@ import android.view.View
 import androidx.annotation.ColorInt
 import com.example.myapplication.R
 
+/**
+ * View, отображающая статистику по ответам на карточки
+ * @property rightColor - цвет правильных ответов
+ * @property wrongColor - цвет неправильных ответов
+ * @property notKnowColor - цвет карточек, на которые не даны ответы
+ * @property rectCircle - кисть, рисующая круг
+ * @property rightAnswerPercent - процент правильных ответов
+ * @property wrongAnswerPercent - процент неправильных ответов
+ * @property notAnswerPercent - процент неотвеченных карточек
+ * @property text - текст, который пишется в центре
+ * @property fineText - текст, который пишется в центре если пользователь получил оценку отлично
+ * @property goodText - текст, который пишется в центре если пользователь получил оценку хорошо
+ * @property acceptableText - текст, который пишется в центре если пользователь получил оценку удовлетворительно
+ * @property badText - текст, который пишется в центре если пользователь получил оценку плохо
+ */
 class StatisticCircleView(context: Context, attrs: AttributeSet) : View(context, attrs) {
     @ColorInt
     private var rightColor: Int
@@ -18,8 +33,6 @@ class StatisticCircleView(context: Context, attrs: AttributeSet) : View(context,
     private var notKnowColor: Int
 
     private var rectCircle = RectF()
-
-    private var rectLegend = RectF()
 
     var rightAnswerPercent: Float = 0F
         set(value) {
@@ -47,12 +60,6 @@ class StatisticCircleView(context: Context, attrs: AttributeSet) : View(context,
         style = Paint.Style.FILL_AND_STROKE
         color = Color.BLACK
         textSize = 80f
-
-    }
-    private var paintTextStatistic = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-        style = Paint.Style.FILL_AND_STROKE
-        color = Color.BLACK
-        textSize = paintText.textSize / 2
 
     }
     private val paint: Paint = Paint(Paint.ANTI_ALIAS_FLAG).apply {

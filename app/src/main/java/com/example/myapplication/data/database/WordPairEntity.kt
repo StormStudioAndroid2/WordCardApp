@@ -5,7 +5,10 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.example.myapplication.domain.model.AnswerType
 import com.example.myapplication.domain.model.WordPair
-
+/**
+ * Entity карточки в базе данныхх
+ *
+ */
 @Entity(tableName = "word_pair")
 data class WordPairEntity(
     var wordPackageOwnerId: Long,

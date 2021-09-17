@@ -26,6 +26,9 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.switchmaterial.SwitchMaterial
 import javax.inject.Inject
 
+/**
+ * Фрагмент для настроек(успел только темную тему реализовать)
+ */
 class SettingFragment : Fragment() {
 
     override fun onCreateView(

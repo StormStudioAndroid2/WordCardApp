@@ -18,6 +18,10 @@ interface WordPairCardStatisticCallback {
     fun returnToList()
 }
 
+/**
+ * Фрагмент, показывающий статистики тестирования пользователя в наборе
+ * @property resultStatistic - статистика
+ */
 class WordPairCardStatisticFragment : Fragment() {
     private var resultStatistic: ResultStatistic? = null
     private val wordPairCardViewModel: WordPairCardStatisticViewModel by viewModels()
@@ -58,6 +62,9 @@ class WordPairCardStatisticFragment : Fragment() {
             }
     }
 
+    /**
+     * Сеттинг LiveData, которая хранит информацию о кол-ве правильных и неправильных ответов
+     */
     private fun setCircleViewObservers() {
         val observerRight = Observer<Float> { right ->
             circleStatisticView.rightAnswerPercent = right

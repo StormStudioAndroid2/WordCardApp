@@ -24,6 +24,11 @@ interface WordPairCardActivity {
     fun onWordPairListEnded(resultStatistic: ResultStatistic)
 }
 
+/**
+ * Фрагмент для тестирования карточек. Карточки показываются в специально адаптере стопкой
+ * и их можно смахивать влево или вправо. Фрагмент подсчитывает кол-во правильных ответов и неправильных
+ *
+ */
 class WordPairCardFragment : Fragment(), CardStackListener {
     private var wordPackage: WordPackage? = null
     private val wordPairCardViewModel: WordPairCardViewModel by viewModels()
@@ -73,6 +78,9 @@ class WordPairCardFragment : Fragment(), CardStackListener {
 
     }
 
+    /**
+     * Действия при смахивании карточки
+     */
     override fun onCardSwiped(direction: Direction?) {
         wordPairCardViewModel.onSwiped(direction)
     }
@@ -87,6 +95,9 @@ class WordPairCardFragment : Fragment(), CardStackListener {
     override fun onCardAppeared(view: View?, position: Int) {
     }
 
+    /**
+     * Действия, когда карточа пропадает с экрана.
+     */
     override fun onCardDisappeared(view: View?, position: Int) {
         wordPairCardViewModel.onCardDisappeared(position)
     }

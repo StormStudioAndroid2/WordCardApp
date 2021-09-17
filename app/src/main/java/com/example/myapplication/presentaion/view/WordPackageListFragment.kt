@@ -22,10 +22,16 @@ import com.example.myapplication.presentaion.viewmodel.WordPackageListViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import javax.inject.Inject
 
+/**
+ * Колбэк для фрагмента
+ */
 interface WordPackageListCallback {
     fun onClickWordPackage(wordPackage: WordPackage)
 }
 
+/**
+ *  Фрагмент, выводящий список всех пакетов
+ */
 class WordPackageListFragment : Fragment(), WordPackageAdapterCallback {
     private lateinit var recyclerView: RecyclerView
     private lateinit var packageAdapter: WordPackageAdapter
@@ -73,6 +79,9 @@ class WordPackageListFragment : Fragment(), WordPackageAdapterCallback {
         return view
     }
 
+    /**
+     *  Сеттинг обсервера, который наблюдает за списком пакетов
+     */
     private fun setWordPackageListObserver() {
         val observer = Observer<List<WordPackage>> { wordPackages ->
             packageAdapter.changeData(wordPackages)
@@ -80,6 +89,9 @@ class WordPackageListFragment : Fragment(), WordPackageAdapterCallback {
         wordPackageListViewModel.wordPackageListLiveData.observe(viewLifecycleOwner, observer)
     }
 
+    /**
+     *  Сеттинг обсервера, который наблюдает за состоянием View
+     */
     private fun setViewStateObserver() {
         val observer = Observer<ViewState> { viewState ->
             when (viewState) {

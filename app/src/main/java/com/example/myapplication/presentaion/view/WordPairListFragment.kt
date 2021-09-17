@@ -35,6 +35,9 @@ interface WordPairActivity {
     fun checkKnowledgeButtonPressed()
 }
 
+/**
+ * Фрагмент, отображающий список всех карточек в пакете
+ */
 class WordPairListFragment : Fragment() {
 
     @Inject
@@ -97,6 +100,9 @@ class WordPairListFragment : Fragment() {
             }
     }
 
+    /**
+     * Сеттинг обсервера, следящего за обновлением карточек
+     */
     private fun setWordPairListObserver() {
         val observer = Observer<WordPackage> { wordPackage ->
             wordPairListAdapter.changeData(wordPackage.wordPairList)
@@ -105,6 +111,9 @@ class WordPairListFragment : Fragment() {
         wordPairListViewModel.wordListPackage.observe(viewLifecycleOwner, observer)
     }
 
+    /**
+     * Сеттинг обсервера, следящего за состоянием view
+     */
     private fun setViewStateObserver() {
         val observer = Observer<ViewState> { viewstate ->
             when (viewstate) {

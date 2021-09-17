@@ -19,6 +19,9 @@ import javax.inject.Inject
 
 const val CREATE_PACKAGE_DIALOG_TAG = "CreatePackageDialogTag"
 
+/**
+ *  Главная активити, на которой размещаются список пакетов и настройки
+ */
 class MainActivity : AppCompatActivity(), WordPackageListCallback, CreatePackageCallback {
 
     @Inject
@@ -36,6 +39,10 @@ class MainActivity : AppCompatActivity(), WordPackageListCallback, CreatePackage
         setInsertStateObserver()
     }
 
+    /**
+     *  Нажатие на пакет, обработка и открытие другой активности
+     *  @param wordPackage - пакет, который нужно передать в другую активность
+     */
     override fun onClickWordPackage(wordPackage: WordPackage) {
         startActivity(
             PackageActivity.createIntent(
@@ -45,6 +52,10 @@ class MainActivity : AppCompatActivity(), WordPackageListCallback, CreatePackage
         )
     }
 
+    /**
+     * Обработка, когда пользователь создает новый пакет
+     * @see CreatePackageCallback
+     */
     override fun onPackageFragmentYes(
         title: String,
         firstLanguage: String,
@@ -55,6 +66,9 @@ class MainActivity : AppCompatActivity(), WordPackageListCallback, CreatePackage
         )
     }
 
+    /**
+     *  Наблюдатель, смотрящий, в каком состоянии находится сохранение пакета в базу данных
+     */
     private fun setInsertStateObserver() {
         val observer = Observer<ViewState> { viewstate ->
             if (viewstate == ViewState.ERROR) {
@@ -69,11 +83,17 @@ class MainActivity : AppCompatActivity(), WordPackageListCallback, CreatePackage
         mainViewModel.insertPackageStateLiveData.observe(this, observer)
     }
 
+    /**
+     *  установка нижней панели навигации
+     */
     private fun setUpBottomNav(navController: NavController) {
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_nav_view)
         bottomNav?.setupWithNavController(navController)
     }
 
+    /**
+     * Опреденеие, ночную тему показывать или дневную в приложении
+     */
     private fun setTheme() {
         val sharedPreferences = getSharedPreferences(
             "sharedPrefs", MODE_PRIVATE

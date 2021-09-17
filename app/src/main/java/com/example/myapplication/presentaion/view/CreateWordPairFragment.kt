@@ -10,10 +10,16 @@ import android.widget.TextView
 import androidx.fragment.app.DialogFragment
 import com.example.myapplication.R
 
+/**
+ *  Колбэк фрагмента, вью, получающее результаты и обрабатывающее их
+ */
 interface CreateWordPairCallback {
     fun onWordPairFragmentYes(frontWord: String, backWord: String)
 }
 
+/**
+ *  Фрагмент для создания новой карточки в пакете
+ */
 class CreateWordPairFragment : DialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {

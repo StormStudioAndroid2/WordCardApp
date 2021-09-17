@@ -11,10 +11,16 @@ import android.widget.TextView
 import androidx.fragment.app.DialogFragment
 import com.example.myapplication.R
 
+/**
+ * Колбэк фрагмента для получения результатов и их обработки
+ */
 interface CreatePackageCallback {
     fun onPackageFragmentYes(title: String, firstLanguage: String, secondLanguage: String)
 }
 
+/**
+ * Фрагмент диалог для создание нового пакета
+ */
 class CreatePackageFragment : DialogFragment() {
 
 

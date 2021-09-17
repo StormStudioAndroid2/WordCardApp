@@ -12,6 +12,9 @@ import com.example.myapplication.domain.model.WordPair
 import com.example.myapplication.presentaion.utils.animateWordPairCard
 import com.example.myapplication.presentaion.utils.setCameraDistance
 
+/**
+ * Адаптер в виде стопки для списка всех карточек
+ */
 class WordStackAdapter(private var dataSet: List<WordPair>) :
     RecyclerView.Adapter<WordStackAdapter.WordPairCardViewHolder>() {
 

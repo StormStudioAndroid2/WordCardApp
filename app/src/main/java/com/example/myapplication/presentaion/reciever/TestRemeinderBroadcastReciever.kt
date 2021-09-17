@@ -17,6 +17,9 @@ const val CHANNEL_ID = 101
 
 class TestNotificationBroadcastReceiver : BroadcastReceiver() {
 
+    /**
+     * Получение экшна при запуске приложения , его обработка
+     */
     override fun onReceive(context: Context?, intent: Intent?) {
         if (intent?.action == Intent.ACTION_BOOT_COMPLETED || intent?.action == Intent.ACTION_REBOOT || intent?.action == Intent.ACTION_LOCKED_BOOT_COMPLETED) {
             context?.let {
@@ -25,6 +28,9 @@ class TestNotificationBroadcastReceiver : BroadcastReceiver() {
         }
     }
 
+    /**
+     * Показывает уведомление о том, что нужно повторять слова на карточках
+     */
     private fun showNotification(context: Context) {
         val contentIntent = PendingIntent.getBroadcast(
             context, 0,

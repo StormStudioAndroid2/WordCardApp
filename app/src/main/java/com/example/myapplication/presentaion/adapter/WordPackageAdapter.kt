@@ -8,10 +8,22 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
 import com.example.myapplication.domain.model.WordPackage
 
+/**
+ * Колбэк для данного адаптера, нужен для обработке клика на пакет
+ */
 interface WordPackageAdapterCallback {
+    /**
+     *  Метод, обрабатывающий нажатие на пакет.
+     *  @param adapterPosition - показывает, какую позицию занимает пакет в списке
+     */
     fun onClick(adapterPosition: Int)
 }
 
+/**
+ *  Адаптер для списка пакетов
+ *  @param dataSet - список всех пакетов
+ *  @param wordPackageAdapterCallback - колбэк
+ */
 class WordPackageAdapter(
     private var dataSet: List<WordPackage>,
     private val wordPackageAdapterCallback: WordPackageAdapterCallback

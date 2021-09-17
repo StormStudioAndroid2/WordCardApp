@@ -26,6 +26,9 @@ private const val WORD_STATISTIC_FRAGMENT = "WordStatisticFragment"
 
 private const val CREATE_WORD_PAIR_DIALOG_TAG = "CreateWordPairDialogTag"
 
+/**
+ *  Активити пакета с карточками
+ */
 class PackageActivity : AppCompatActivity(), WordPairActivity, CreateWordPairCallback,
     WordPairCardActivity, WordPairCardStatisticCallback {
 
@@ -54,26 +57,41 @@ class PackageActivity : AppCompatActivity(), WordPairActivity, CreateWordPairCal
         }
     }
 
+    /**
+     * Показывает диалог создания новой карточки
+     */
     override fun showDialog() {
         CreateWordPairFragment().show(supportFragmentManager, CREATE_WORD_PAIR_DIALOG_TAG)
     }
 
+    /**
+     * Нажатие на кнопку для проверки знаний
+     */
     override fun checkKnowledgeButtonPressed() {
         packageViewModel.wordPackageLiveData.value?.let { wordPackage ->
-            supportFragmentManager.beginTransaction()
-                .replace(
-                    R.id.container,
-                    WordPairCardFragment.newInstance(wordPackage),
-                    WORD_STACK_FRAGMENT
-                )
-                .commit()
+            if (wordPackage.wordPairList.isNotEmpty()) {
+                supportFragmentManager.beginTransaction()
+                    .replace(
+                        R.id.container,
+                        WordPairCardFragment.newInstance(wordPackage),
+                        WORD_STACK_FRAGMENT
+                    )
+                    .commit()
+            }
         }
     }
 
+    /**
+     * Обработка, если пользователь нажал на да на диалоге, создающем новую карточку
+     * @see CreateWordPairCallback
+     */
     override fun onWordPairFragmentYes(frontWord: String, backWord: String) {
         packageViewModel.addNewCardToPackage(frontWord, backWord)
     }
 
+    /**
+     * Обработка ситуации, когда список тестируемых карточек кончился и необходимо показать статистику
+     */
     override fun onWordPairListEnded(resultStatistic: ResultStatistic) {
         supportFragmentManager.beginTransaction()
             .replace(
@@ -84,6 +102,9 @@ class PackageActivity : AppCompatActivity(), WordPairActivity, CreateWordPairCal
             .commit()
     }
 
+    /**
+     * Установка viewstate
+     */
     private fun setViewStateObserver() {
         val observer = Observer<ViewState> { viewstate ->
             when (viewstate) {

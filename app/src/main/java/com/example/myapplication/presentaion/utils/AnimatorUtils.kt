@@ -4,6 +4,9 @@ import android.animation.AnimatorSet
 import android.content.Context
 import android.view.View
 
+/**
+ * функция, которая поворачивает карточку другой стороной
+ */
 fun animateWordPairCard(
     isFront: Boolean,
     animatorFrontSet: AnimatorSet,

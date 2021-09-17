@@ -5,6 +5,9 @@ import androidx.room.Entity
 import androidx.room.Relation
 import com.example.myapplication.domain.model.WordPackage
 
+/**
+ *  Entity, связывающая пакет и карточки. Используется для реализации отношения один ко многим
+ */
 @Entity(primaryKeys = ["wordPackageId", "wordPairId"])
 data class WordPackageWithWords(
     @Embedded val wordPackageEntity: WordPackageEntity,

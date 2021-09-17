@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">My Application</string>
+    <string name="app_name">Foreign Card</string>
     <string name="cancel">Отмена</string>
     <string name="new_package_name">Имя набора карт</string>
     <string name="new_card_set_language">Первый язык набора</string>

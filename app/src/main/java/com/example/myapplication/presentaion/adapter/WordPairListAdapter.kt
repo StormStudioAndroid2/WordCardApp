@@ -12,7 +12,10 @@ import com.example.myapplication.domain.model.WordPair
 import com.example.myapplication.presentaion.utils.animateWordPairCard
 import com.example.myapplication.presentaion.utils.setCameraDistance
 
-
+/**
+ *  Адаптер для списка карточек
+ *  @param wordPairList - список всех карточек
+ */
 class WordPairListAdapter(
     var wordPairList: List<WordPair>
 ) :

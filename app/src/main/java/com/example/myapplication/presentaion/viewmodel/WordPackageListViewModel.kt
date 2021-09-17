@@ -11,18 +11,28 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+/**
+ * ViewModel для фрагмента со списком всех пакетов слов
+ * @param roomRepository - репозиторий для связи с базой данных
+ * @property wordPackageListLiveData - LiveData, хранящая список всех пакетов с базы данных
+ * @property loadPackageStateLiveData - LiveData, хранящая состояние View
+ */
 class WordPackageListViewModel @Inject constructor(private val roomRepository: IWordRepository) :
     ViewModel() {
-    private val _wordPackageListLiveData = MutableLiveData<List<WordPackage>>()
 
+    private val _wordPackageListLiveData = MutableLiveData<List<WordPackage>>()
     val wordPackageListLiveData: LiveData<List<WordPackage>>
         get() = _wordPackageListLiveData
+
     private val _loadPackageStateLiveData = MutableLiveData<ViewState>()
     val loadPackageStateLiveData: LiveData<ViewState>
         get() = _loadPackageStateLiveData
 
     private var allPackages: List<WordPackage> = listOf()
 
+    /**
+     * Загрузка данных с базы данных, обновление LiveData
+     */
     fun loadWordPackagesFromDatabase() {
         viewModelScope.launch {
             try {

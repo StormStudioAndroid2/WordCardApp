@@ -1,19 +1,24 @@
 package com.example.myapplication.presentaion.viewmodel
 
-import android.util.Log
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.myapplication.data.repository.IWordRepository
 import com.example.myapplication.domain.model.WordPackage
 import com.example.myapplication.presentaion.utils.ViewState
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import java.lang.Exception
-import java.lang.NullPointerException
-import java.lang.RuntimeException
 import javax.inject.Inject
 
+
+/**
+ *  ViewModel для Activity с пакетами
+ *  @param iWordRepository - репозиторий для загрузки пакета по id с сервера
+ */
 class PackageViewModel @Inject constructor(private val iWordRepository: IWordRepository) :
     ViewModel() {
+
     private val _wordPackageLiveData: MutableLiveData<WordPackage> =
         MutableLiveData<WordPackage>()
     val wordPackageLiveData: LiveData<WordPackage>
@@ -25,7 +30,10 @@ class PackageViewModel @Inject constructor(private val iWordRepository: IWordRep
     val insertViewStateLiveData: LiveData<ViewState>
         get() = _insertViewStateLiveData
 
-
+    /**
+     * Загружает нужный пакет с базы данных
+     *  @param packageId - параметр для доступа к пакету через базу данных
+     */
     fun loadPackage(packageId: Long) {
         viewModelScope.launch {
             try {
@@ -43,6 +51,11 @@ class PackageViewModel @Inject constructor(private val iWordRepository: IWordRep
         }
     }
 
+    /**
+     * Создает новую карточку в данном пакете по указанным параметрам
+     *  @param frontWord - слово с передней стороны на новой карточке
+     *  @param backWord - слово с задней стороны на новой карточке
+     */
     fun addNewCardToPackage(frontWord: String, backWord: String) {
         viewModelScope.launch {
             try {

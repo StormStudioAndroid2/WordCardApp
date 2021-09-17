@@ -12,15 +12,25 @@ import java.lang.Exception
 
 const val ERROR_ROOM = "ERROR_ROOM"
 
+/**
+ *  Репозиторий для доступа к базе данных
+ *  @param wordRoomDatabase - база данных
+ */
 class WordRoomRepository(private val wordRoomDatabase: WordRoomDatabase) : IWordRepository {
 
-
+    /**
+     *  Возвращает Flow со списком всех пакетов без карточек
+     */
     override fun getAllPackages(): Flow<List<WordPackage>> {
         return wordRoomDatabase.wordPackageDao().getAll().map { list ->
             list.map { wordPackageEntity -> wordPackageEntity.convertToDomain() }
         }
     }
 
+    /**
+     *  Добавляет пакет в базу данных
+     *  @param wordPackage - пакет, который нужно добавить
+     */
     override suspend fun addPackage(wordPackage: WordPackage): Boolean {
         val entity = WordPackageEntity(
             wordPackage.name,
@@ -34,6 +44,9 @@ class WordRoomRepository(private val wordRoomDatabase: WordRoomDatabase) : IWord
         return true
     }
 
+    /**
+     *  Возвращает список всех пакетов с карточками
+     */
     override fun getPackageWithWordsById(
         wordPackageId: Long
     ): Flow<WordPackage> {
@@ -49,6 +62,12 @@ class WordRoomRepository(private val wordRoomDatabase: WordRoomDatabase) : IWord
             }
     }
 
+    /**
+     *  добавляет карточку в пакет
+     *  @param frontWord - переднее слово карточки
+     *  @param backWord - заднее слово карточки
+     *  @param ownerId - id пакета, хранящего карточку
+     */
     override suspend fun addWordPair(frontWord: String, backWord: String, ownerId: Long): Boolean {
         val entity = WordPairEntity(
             ownerId, frontWord, backWord

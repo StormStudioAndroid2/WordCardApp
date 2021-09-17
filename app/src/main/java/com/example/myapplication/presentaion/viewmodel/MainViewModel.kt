@@ -14,14 +14,19 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+/**
+ *  ViewModel для главной активности
+ *  @property insertPackageStateLiveData - LiveData, показывающая, успешно ли вставили пакет в базу данных
+ */
 class MainViewModel @Inject constructor(private val roomRepository: IWordRepository) : ViewModel() {
-    private val _wordPackageListLiveData = MutableLiveData<List<WordPackage>>()
     private val _insertPackageStateLiveData = MutableLiveData<ViewState>()
     val insertPackageStateLiveData: LiveData<ViewState>
         get() = _insertPackageStateLiveData
 
-    private var allPackages: List<WordPackage> = listOf()
-
+    /**
+     *  Добавляет указанный пакет в базу данных
+     *  @param wordPackage - пакет, который нужно добавить в базу данных
+     */
     fun insertWordPackage(wordPackage: WordPackage) {
         viewModelScope.launch {
             try {
@@ -32,9 +37,5 @@ class MainViewModel @Inject constructor(private val roomRepository: IWordReposit
                 _insertPackageStateLiveData.postValue(ViewState.ERROR)
             }
         }
-    }
-
-    fun onSearchEditTextChanged(searchName: String) {
-        _wordPackageListLiveData.postValue(allPackages.filter { p -> p.name.contains(searchName) })
     }
 }

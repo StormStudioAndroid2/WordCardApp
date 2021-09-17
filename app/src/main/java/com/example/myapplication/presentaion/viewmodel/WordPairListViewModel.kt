@@ -9,13 +9,21 @@ import kotlinx.coroutines.launch
 import java.lang.Exception
 import javax.inject.Inject
 
+/**
+ *  фрагмент, показывающий список карточек пакета
+ *  @param iWordRepository - репозиторий для доступа к базе данных
+ *  @property wordListPackage - LiveData, хранящая пакет с карточками
+ *  @property loadViewStateLiveData - LiveData, хранящая состояние View
+ */
 class WordPairListViewModel @Inject constructor(
     private val iWordRepository: IWordRepository
 ) : ViewModel() {
+
     private val _WordListPackage: MutableLiveData<WordPackage> =
         MutableLiveData<WordPackage>()
     val wordListPackage: LiveData<WordPackage>
         get() = _WordListPackage
+
     private val _loadViewStateLiveData = MutableLiveData<ViewState>()
     val loadViewStateLiveData: LiveData<ViewState>
         get() = _loadViewStateLiveData

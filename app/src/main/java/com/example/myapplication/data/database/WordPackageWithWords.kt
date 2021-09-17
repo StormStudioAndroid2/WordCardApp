@@ -15,11 +15,4 @@ data class WordPackageWithWords(
     val wordPairs: List<WordPairEntity>
 ) {
 
-    fun convertToDomain(): WordPackage = WordPackage(
-        wordPackageEntity.wordPackageId,
-        wordPackageEntity.name,
-        wordPackageEntity.frontLanguage,
-        wordPackageEntity.backLanguage,
-        wordPairs.map(WordPairEntity::convertToDomain)
-    )
 }

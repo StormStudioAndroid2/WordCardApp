@@ -7,12 +7,12 @@
         <attr name="rightColor" format="color" />
         <attr name="wrongColor" format="color" />
         <attr name="notAnswerColor" format="color" />
-        <attr name="fineResultText" format="string"/>
-        <attr name="goodResultText" format="string"/>
-        <attr name="acceptableResultText" format="string"/>
-        <attr name="badResultText" format="string"/>
-        <attr name="android:textSize" format="dimension"/>
-
+        <attr name="fineResultText" format="string" />
+        <attr name="goodResultText" format="string" />
+        <attr name="acceptableResultText" format="string" />
+        <attr name="badResultText" format="string" />
+        <attr name="android:textSize" format="dimension" />
+        <attr name="android:textColor" format="color" />
 
     </declare-styleable>
 

@@ -4,7 +4,6 @@ import android.app.Application
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.os.Build
-import com.example.myapplication.data.database.WordRoomDatabase
 import com.example.myapplication.di.*
 import com.example.myapplication.presentaion.reciever.CHANNEL_ID
 import dagger.BindsInstance
@@ -30,6 +29,9 @@ interface ApplicationComponent {
     fun wordPairComponent(): WordPairComponent.Factory
 
     fun packageComponent(): PackageComponent.Factory
+
+    fun wordPackageListComponent(): WordPackageListComponent.Factory
+
 }
 
 class App : Application() {

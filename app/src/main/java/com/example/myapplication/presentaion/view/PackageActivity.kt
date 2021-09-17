@@ -27,7 +27,7 @@ private const val WORD_STATISTIC_FRAGMENT = "WordStatisticFragment"
 private const val CREATE_WORD_PAIR_DIALOG_TAG = "CreateWordPairDialogTag"
 
 class PackageActivity : AppCompatActivity(), WordPairActivity, CreateWordPairCallback,
-    WordPairCardActivity {
+    WordPairCardActivity, WordPairCardStatisticCallback {
 
     private lateinit var errorTextView: TextView
     private lateinit var progressView: ProgressBar
@@ -130,5 +130,21 @@ class PackageActivity : AppCompatActivity(), WordPairActivity, CreateWordPairCal
                 .commit()
         }
         packageViewModel.wordPackageLiveData.observe(this, observer)
+    }
+
+    override fun returnToList() {
+        loadListWordPairs()
+    }
+
+    private fun loadListWordPairs() {
+        packageViewModel.wordPackageLiveData.value?.let {
+            supportFragmentManager.beginTransaction()
+                .replace(
+                    R.id.container,
+                    WordPairListFragment.newInstance(it.id),
+                    WORD_LIST_FRAGMENT
+                )
+                .commit()
+        }
     }
 }

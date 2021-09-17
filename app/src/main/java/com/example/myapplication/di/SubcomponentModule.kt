@@ -3,5 +3,5 @@ package com.example.myapplication.di
 import dagger.Module
 
 
-@Module(subcomponents = [MainComponent::class, WordPairComponent::class])
+@Module(subcomponents = [MainComponent::class, WordPairComponent::class, WordPackageListComponent::class])
 class SubcomponentsModule {}

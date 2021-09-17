@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -12,6 +13,10 @@ import com.example.myapplication.domain.model.ResultStatistic
 import com.example.myapplication.presentaion.viewmodel.WordPairCardStatisticViewModel
 
 private const val CARD_STATISTIC_TAG = "CardStatistic"
+
+interface WordPairCardStatisticCallback {
+    fun returnToList()
+}
 
 class WordPairCardStatisticFragment : Fragment() {
     private var resultStatistic: ResultStatistic? = null
@@ -36,6 +41,10 @@ class WordPairCardStatisticFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_word_pair_result, container, false)
         circleStatisticView = view.findViewById(R.id.circle_statistic_view)
         setCircleViewObservers()
+        val button = view.findViewById<Button>(R.id.finish_button)
+        button.setOnClickListener {
+            (activity as WordPairCardStatisticCallback).returnToList()
+        }
         return view
     }
 

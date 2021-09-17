@@ -28,4 +28,7 @@
     <string name="error_message">Произошла ошибка при загрузке данных</string>
     <string name="search_hint">Поиск набора</string>
     <string name="error_message_insert">Невозможно сохранить набор!</string>
+    <string name="menu_list">Наборы</string>
+    <string name="menu_settings">Настройкии</string>
+    <string name="dark_theme_setting_string">Включить темную тему</string>
 </resources>

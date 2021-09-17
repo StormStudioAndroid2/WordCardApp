@@ -58,75 +58,7 @@ class MainViewModelTest {
         MockitoAnnotations.initMocks(this)
         Dispatchers.setMain(testDispatcher)
         mainViewModel = MainViewModel(repository)
-        mainViewModel.wordPackageListLiveData.observeForever(wordPackageObserver)
-        mainViewModel.loadPackageStateLiveData.observeForever(loadDataObserver)
         mainViewModel.insertPackageStateLiveData.observeForever(insertDataObserver)
-    }
-
-    @Test
-    fun testLoadDataFromRepo() {
-        val data = createTestData()
-        `when`(repository.getAllPackages()).thenReturn(flowOf(data))
-        mainViewModel.loadWordPackagesFromDatabase()
-        val inOrder = Mockito.inOrder(
-            insertDataObserver,
-            wordPackageObserver,
-            loadDataObserver
-        )
-        inOrder.verify(loadDataObserver).onChanged(eq(ViewState.LOADING))
-        inOrder.verify(wordPackageObserver).onChanged(ArgumentMatchers.eq(data))
-        inOrder.verify(loadDataObserver).onChanged(eq(ViewState.LOADED))
-        inOrder.verifyNoMoreInteractions()
-    }
-
-    @Test
-    fun testLoadDataFromRepoError() {
-        `when`(repository.getAllPackages()).thenThrow(RuntimeException())
-        mainViewModel.loadWordPackagesFromDatabase()
-        val inOrder = Mockito.inOrder(
-            loadDataObserver,
-            wordPackageObserver,
-        )
-        inOrder.verify(loadDataObserver).onChanged(eq(ViewState.LOADING))
-        inOrder.verify(loadDataObserver).onChanged(eq(ViewState.ERROR))
-
-        inOrder.verifyNoMoreInteractions()
-    }
-
-    @Test
-    fun testFilterData() {
-        val data = createTestData()
-        `when`(repository.getAllPackages()).thenReturn(flowOf(data))
-        mainViewModel.loadWordPackagesFromDatabase()
-        mainViewModel.onSearchEditTextChanged("fi")
-        val inOrder = Mockito.inOrder(
-            insertDataObserver,
-            wordPackageObserver,
-            loadDataObserver
-        )
-        inOrder.verify(loadDataObserver).onChanged(eq(ViewState.LOADING))
-        inOrder.verify(wordPackageObserver).onChanged(ArgumentMatchers.eq(data))
-        inOrder.verify(loadDataObserver).onChanged(eq(ViewState.LOADED))
-        inOrder.verify(wordPackageObserver).onChanged(ArgumentMatchers.eq(listOf(data.first())))
-        inOrder.verifyNoMoreInteractions()
-    }
-
-    @Test
-    fun testFilterDataNotFound() {
-        val data = createTestData()
-        `when`(repository.getAllPackages()).thenReturn(flowOf(data))
-        mainViewModel.loadWordPackagesFromDatabase()
-        mainViewModel.onSearchEditTextChanged("123")
-        val inOrder = Mockito.inOrder(
-            insertDataObserver,
-            wordPackageObserver,
-            loadDataObserver
-        )
-        inOrder.verify(loadDataObserver).onChanged(eq(ViewState.LOADING))
-        inOrder.verify(wordPackageObserver).onChanged(ArgumentMatchers.eq(data))
-        inOrder.verify(loadDataObserver).onChanged(eq(ViewState.LOADED))
-        inOrder.verify(wordPackageObserver).onChanged(ArgumentMatchers.eq(listOf()))
-        inOrder.verifyNoMoreInteractions()
     }
 
     @Test

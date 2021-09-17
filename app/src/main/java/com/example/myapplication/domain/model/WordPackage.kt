@@ -4,7 +4,7 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-class WordPackage(
+data class WordPackage(
     var id: Long,
     var name: String,
     var frontLanguage: String,

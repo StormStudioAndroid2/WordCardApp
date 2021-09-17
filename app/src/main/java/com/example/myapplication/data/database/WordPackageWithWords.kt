@@ -13,6 +13,4 @@ data class WordPackageWithWords(
         entityColumn = "wordPackageOwnerId"
     )
     val wordPairs: List<WordPairEntity>
-) {
-
-}
+)

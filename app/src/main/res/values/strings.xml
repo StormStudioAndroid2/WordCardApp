@@ -33,4 +33,5 @@
     <string name="dark_theme_setting_string">Включить темную тему</string>
     <string name="first_language">Первый язык: %s</string>
     <string name="second_language">Второй язык: %s</string>
+    <string name="reverse_package">Развернуть набор</string>
 </resources>

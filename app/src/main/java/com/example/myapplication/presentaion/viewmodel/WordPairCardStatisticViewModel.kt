@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import com.example.myapplication.domain.model.AnswerType
 import com.example.myapplication.domain.model.ResultStatistic
 import com.example.myapplication.domain.model.WordPackage
+import javax.inject.Inject
 
 /**
  * ViewModel для фрагмента, показывающего статистику пользователя
@@ -14,7 +15,7 @@ import com.example.myapplication.domain.model.WordPackage
  * @property wrongAnswerPercent - LiveData, показывающая процент неправильных ответов
  * @property notAnswerPercent - LiveData, показывающая процент неотвеченных карточек(планируется добавить в будущем)
  */
-class WordPairCardStatisticViewModel : ViewModel() {
+class WordPairCardStatisticViewModel @Inject constructor(resultStatistic: ResultStatistic) : ViewModel() {
 
     private var _rightAnswerPercent = MutableLiveData(0f)
     val rightAnswerPercent: LiveData<Float>
@@ -25,6 +26,10 @@ class WordPairCardStatisticViewModel : ViewModel() {
     private var _notAnswerPercent = MutableLiveData(0f)
     val notAnswerPercent: LiveData<Float>
         get() = _notAnswerPercent
+
+    init {
+        onResultStatisticReceived(resultStatistic)
+    }
 
     /**
      *  размещает результаты правильных и неправильных ответов в LiveData

@@ -3,6 +3,7 @@ package com.example.myapplication.presentaion.viewmodel
 import androidx.lifecycle.*
 import com.example.myapplication.data.repository.IWordRepository
 import com.example.myapplication.domain.model.WordPackage
+import com.example.myapplication.presentaion.model.WordPackageInfoModel
 import com.example.myapplication.presentaion.utils.ViewState
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -16,7 +17,8 @@ import javax.inject.Inject
  *  @property loadViewStateLiveData - LiveData, хранящая состояние View
  */
 class WordPairListViewModel @Inject constructor(
-    private val iWordRepository: IWordRepository
+    private val iWordRepository: IWordRepository,
+    wordPackageInfoModel: WordPackageInfoModel
 ) : ViewModel() {
 
     private val _WordListPackage: MutableLiveData<WordPackage> =
@@ -27,6 +29,11 @@ class WordPairListViewModel @Inject constructor(
     private val _loadViewStateLiveData = MutableLiveData<ViewState>()
     val loadViewStateLiveData: LiveData<ViewState>
         get() = _loadViewStateLiveData
+
+    init {
+        updateList(wordPackageInfoModel.id)
+    }
+
 
     fun updateList(packageId: Long) {
         viewModelScope.launch {

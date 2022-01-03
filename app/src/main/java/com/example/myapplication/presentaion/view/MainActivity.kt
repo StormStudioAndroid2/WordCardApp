@@ -1,6 +1,7 @@
 package com.example.myapplication.presentaion.view
 
 import android.os.Bundle
+import android.os.PersistableBundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
@@ -14,6 +15,7 @@ import com.example.myapplication.domain.model.WordPackage
 import com.example.myapplication.presentaion.utils.ViewState
 import com.example.myapplication.presentaion.viewmodel.MainViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import java.lang.Exception
 import javax.inject.Inject
 
 
@@ -106,4 +108,6 @@ class MainActivity : AppCompatActivity(), WordPackageListCallback, CreatePackage
 
         }
     }
+    
+
 }

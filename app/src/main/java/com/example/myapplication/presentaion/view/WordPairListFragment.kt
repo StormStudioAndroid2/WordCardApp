@@ -20,13 +20,14 @@ import com.example.myapplication.data.repository.WordRoomRepository
 import com.example.myapplication.domain.model.WordPackage
 import com.example.myapplication.domain.model.WordPair
 import com.example.myapplication.presentaion.adapter.WordPairListAdapter
+import com.example.myapplication.presentaion.model.WordPackageInfoModel
 import com.example.myapplication.presentaion.utils.ViewState
 import com.example.myapplication.presentaion.viewmodel.MainViewModel
 import com.example.myapplication.presentaion.viewmodel.WordPairListViewModel
 import java.lang.NullPointerException
 import javax.inject.Inject
 
-private const val WORD_PACKAGE_ID = "WordPackageId"
+const val WORD_PACKAGE_ID = "WordPackageId"
 const val SPAN_COUNT = 2
 
 interface WordPairActivity {
@@ -43,7 +44,6 @@ class WordPairListFragment : Fragment() {
     @Inject
     lateinit var wordPairListViewModel: WordPairListViewModel
     private lateinit var titleTextView: TextView
-    private var wordPackageId: Long? = null
     private val wordPairListAdapter = WordPairListAdapter(listOf())
 
 
@@ -52,13 +52,7 @@ class WordPairListFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        (activity?.application as App).appComponent.wordPairComponent().create().inject(this)
-        arguments?.let {
-            wordPackageId = it.getLong(WORD_PACKAGE_ID)
-        }
-        wordPackageId?.let { id ->
-            wordPairListViewModel.updateList(id)
-        } ?: throw NullPointerException("wordPackageId cannot be null!")
+        (activity?.application as App).appComponent.wordPairComponent().create(this).inject(this)
     }
 
     override fun onCreateView(
@@ -92,10 +86,10 @@ class WordPairListFragment : Fragment() {
 
     companion object {
 
-        fun newInstance(wordPackageId: Long) =
+        fun newInstance(wordPackageInfoModel: WordPackageInfoModel) =
             WordPairListFragment().apply {
                 arguments = Bundle().apply {
-                    putLong(WORD_PACKAGE_ID, wordPackageId)
+                    putParcelable(WORD_PACKAGE_ID, wordPackageInfoModel)
                 }
             }
     }
@@ -131,6 +125,6 @@ class WordPairListFragment : Fragment() {
                 }
             }
         }
-        wordPairListViewModel.loadViewStateLiveData.observe(this, observer)
+        wordPairListViewModel.loadViewStateLiveData.observe(viewLifecycleOwner, observer)
     }
 }

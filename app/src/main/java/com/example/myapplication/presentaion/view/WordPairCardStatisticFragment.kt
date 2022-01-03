@@ -8,11 +8,13 @@ import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import com.example.myapplication.App
 import com.example.myapplication.R
 import com.example.myapplication.domain.model.ResultStatistic
 import com.example.myapplication.presentaion.viewmodel.WordPairCardStatisticViewModel
+import javax.inject.Inject
 
-private const val CARD_STATISTIC_TAG = "CardStatistic"
+const val CARD_STATISTIC_TAG = "CardStatistic"
 
 interface WordPairCardStatisticCallback {
     fun returnToList()
@@ -23,18 +25,14 @@ interface WordPairCardStatisticCallback {
  * @property resultStatistic - статистика
  */
 class WordPairCardStatisticFragment : Fragment() {
-    private var resultStatistic: ResultStatistic? = null
-    private val wordPairCardViewModel: WordPairCardStatisticViewModel by viewModels()
+    @Inject
+    lateinit var wordPairCardViewModel: WordPairCardStatisticViewModel
     private lateinit var circleStatisticView: StatisticCircleView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            resultStatistic = it.getParcelable(CARD_STATISTIC_TAG)
-        }
-        resultStatistic?.let {
-            wordPairCardViewModel.onResultStatisticReceived(it)
-        }
+        (activity?.application as App).appComponent.wordPairCardStatisticComponent().create(this)
+            .inject(this)
     }
 
     override fun onCreateView(
@@ -70,12 +68,12 @@ class WordPairCardStatisticFragment : Fragment() {
             circleStatisticView.rightAnswerPercent = right
         }
         wordPairCardViewModel.rightAnswerPercent.observe(viewLifecycleOwner, observerRight)
-        val observerWrong = Observer<Float> { right ->
-            circleStatisticView.wrongAnswerPercent = right
+        val observerWrong = Observer<Float> { wrong ->
+            circleStatisticView.wrongAnswerPercent = wrong
         }
         wordPairCardViewModel.wrongAnswerPercent.observe(viewLifecycleOwner, observerWrong)
-        val observerNotAnswer = Observer<Float> { right ->
-            circleStatisticView.notAnswerPercent = right
+        val observerNotAnswer = Observer<Float> { noAnswer ->
+            circleStatisticView.notAnswerPercent = noAnswer
         }
         wordPairCardViewModel.notAnswerPercent.observe(viewLifecycleOwner, observerNotAnswer)
     }

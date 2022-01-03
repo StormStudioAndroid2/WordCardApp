@@ -50,6 +50,16 @@
         app:tint="@color/white" />
 
     <Button
+        android:id="@+id/reverse_package"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/reverse_package"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@+id/check_knowledge_button"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <Button
         android:id="@+id/check_knowledge_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

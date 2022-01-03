@@ -15,6 +15,7 @@ import com.example.myapplication.R
 import com.example.myapplication.data.repository.WordRoomRepository
 import com.example.myapplication.domain.model.ResultStatistic
 import com.example.myapplication.domain.model.WordPackage
+import com.example.myapplication.presentaion.model.WordPackageInfoModel
 import com.example.myapplication.presentaion.utils.ViewState
 import com.example.myapplication.presentaion.viewmodel.PackageViewModel
 import javax.inject.Inject
@@ -44,8 +45,7 @@ class PackageActivity : AppCompatActivity(), WordPairActivity, CreateWordPairCal
         errorTextView = findViewById(R.id.error_text_view)
         progressView = findViewById(R.id.progress_view)
         (application as App).appComponent.packageComponent().create().inject(this)
-        val id = intent.getLongExtra(PACKAGE_ID_TAG, -1)
-        packageViewModel.loadPackage(id)
+        packageViewModel.loadPackage(intent.getLongExtra(PACKAGE_ID_TAG, -1))
         setViewStateObserver()
         setPackageWithWordsObserver()
         setInsertViewStateObserver()
@@ -145,7 +145,7 @@ class PackageActivity : AppCompatActivity(), WordPairActivity, CreateWordPairCal
             supportFragmentManager.beginTransaction()
                 .replace(
                     R.id.container,
-                    WordPairListFragment.newInstance(it.id),
+                    WordPairListFragment.newInstance(WordPackageInfoModel(it.id)),
                     WORD_LIST_FRAGMENT
                 )
                 .commit()
@@ -162,7 +162,7 @@ class PackageActivity : AppCompatActivity(), WordPairActivity, CreateWordPairCal
             supportFragmentManager.beginTransaction()
                 .replace(
                     R.id.container,
-                    WordPairListFragment.newInstance(it.id),
+                    WordPairListFragment.newInstance(WordPackageInfoModel(it.id)),
                     WORD_LIST_FRAGMENT
                 )
                 .commit()

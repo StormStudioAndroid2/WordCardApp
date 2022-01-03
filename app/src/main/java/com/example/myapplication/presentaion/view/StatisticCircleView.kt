@@ -107,6 +107,11 @@ class StatisticCircleView(context: Context, attrs: AttributeSet) : View(context,
         var minWidth = 0f
         var minHeight = 0f
         paintText.textBounds(text)
+        paintText?.let {
+           with (it) {
+               color.dec()
+           }
+        }
         minHeight /= 2f
         minWidth += paint.strokeWidth + textBound.width()
         minHeight += paint.strokeWidth

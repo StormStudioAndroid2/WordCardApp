@@ -15,7 +15,7 @@ const val CHANNEL_ID = 101
 
 
 @Singleton
-@Component(modules = [DatabaseModule::class, SubcomponentsModule::class])
+@Component(modules = [DatabaseModule::class, SubcomponentsModule::class, ViewModelModule::class])
 interface ApplicationComponent {
 
     @Component.Factory
@@ -30,7 +30,11 @@ interface ApplicationComponent {
 
     fun packageComponent(): PackageComponent.Factory
 
+    fun wordPairCardComponent(): WordPairCardComponent.Factory
+
     fun wordPackageListComponent(): WordPackageListComponent.Factory
+
+    fun wordPairCardStatisticComponent(): WordPairCardStatisticComponent.Factory
 
 }
 

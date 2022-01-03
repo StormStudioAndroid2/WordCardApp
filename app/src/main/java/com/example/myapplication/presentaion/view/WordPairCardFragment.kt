@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import com.example.myapplication.App
 import com.example.myapplication.R
 import com.example.myapplication.domain.model.ResultStatistic
 import com.example.myapplication.domain.model.WordPackage
@@ -17,8 +18,9 @@ import com.yuyakaido.android.cardstackview.CardStackLayoutManager
 import com.yuyakaido.android.cardstackview.CardStackListener
 import com.yuyakaido.android.cardstackview.CardStackView
 import com.yuyakaido.android.cardstackview.Direction
+import javax.inject.Inject
 
-private const val CARD_PACKAGE_TAG = "CardPackage"
+const val CARD_PACKAGE_TAG = "CardPackage"
 
 interface WordPairCardActivity {
     fun onWordPairListEnded(resultStatistic: ResultStatistic)
@@ -30,18 +32,15 @@ interface WordPairCardActivity {
  *
  */
 class WordPairCardFragment : Fragment(), CardStackListener {
-    private var wordPackage: WordPackage? = null
-    private val wordPairCardViewModel: WordPairCardViewModel by viewModels()
+
+    @Inject
+    lateinit var wordPairCardViewModel: WordPairCardViewModel
+
     private val adapter = WordStackAdapter(listOf())
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            wordPackage = it.getParcelable(CARD_PACKAGE_TAG)
-        }
-        wordPackage?.let {
-            wordPairCardViewModel.setWordPairs(it.wordPairList)
-        }
+        (activity?.application as App).appComponent.wordPairCardComponent().create(this).inject(this)
     }
 
     override fun onCreateView(

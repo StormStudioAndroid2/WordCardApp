@@ -1,6 +1,5 @@
 package com.example.myapplication.domain.usecase
 
-import android.util.Log
 import com.example.myapplication.data.repository.IWordRepository
 import com.example.myapplication.domain.model.WordPackage
 import com.example.myapplication.presentaion.model.WordPackageInfoModel
@@ -26,6 +25,6 @@ class UpdateWordPairsUseCase @Inject constructor(
             if (wordPackege.isReversed != reverse) {
                 return@combine wordPackege.reversePackage()
             }
-            return@combine  wordPackege
+            return@combine wordPackege
         } ?: flowOf()
 }

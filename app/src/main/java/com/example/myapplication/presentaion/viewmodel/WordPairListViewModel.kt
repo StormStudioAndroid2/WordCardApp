@@ -25,7 +25,7 @@ class WordPairListViewModel @Inject constructor(
         updateWordPairsUseCase.subscribeOnWordPackageById().stateIn(
             scope = viewModelScope,
             started = WhileSubscribed(5000),
-            initialValue = WordPackage(-1, "", "", "", emptyList())
+            initialValue = WordPackage.emptyModel()
         )
 
     val loadViewStateFlow: StateFlow<ViewState> = wordPackageFlow.flatMapLatest {
@@ -35,7 +35,6 @@ class WordPairListViewModel @Inject constructor(
         started = WhileSubscribed(5000),
         initialValue = ViewState.LOADING
     )
-
 
     fun reversePackage() {
         updateWordPairsUseCase.updateReverse()

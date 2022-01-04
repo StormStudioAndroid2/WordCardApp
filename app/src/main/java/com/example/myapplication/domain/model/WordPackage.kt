@@ -32,4 +32,9 @@ data class WordPackage(
             !isReversed
         )
     }
+    companion object {
+        fun emptyModel(): WordPackage {
+            return  WordPackage(-1, "", "", "", emptyList())
+        }
+    }
 }

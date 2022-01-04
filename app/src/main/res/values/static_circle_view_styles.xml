@@ -8,10 +8,10 @@
         <item name="rightColor">@android:color/holo_green_dark</item>
         <item name="wrongColor">@android:color/holo_red_light</item>
         <item name="notAnswerColor">@android:color/darker_gray</item>
-        <item name="fineResultText">Отлично!</item>
-        <item name="goodResultText">Хорошо!</item>
-        <item name="acceptableResultText">Удовлетворительно</item>
-        <item name="badResultText">Плохо</item>
+        <item name="fineResultText">@string/circle_view_fine</item>
+        <item name="goodResultText">@string/circle_view_good</item>
+        <item name="acceptableResultText">@string/circle_view_acceptable</item>
+        <item name="badResultText">@string/circle_view_bad</item>
         <item name="android:textSize">30sp</item>
         <item name="android:textColor">@color/text_color</item>
     </style>

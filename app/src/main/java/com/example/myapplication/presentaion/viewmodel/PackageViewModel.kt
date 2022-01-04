@@ -16,7 +16,9 @@ import javax.inject.Inject
  *  ViewModel для Activity с пакетами
  *  @param iWordRepository - репозиторий для загрузки пакета по id с сервера
  */
-class PackageViewModel @Inject constructor(private val iWordRepository: IWordRepository) :
+class PackageViewModel @Inject constructor(
+    private val iWordRepository: IWordRepository
+) :
     ViewModel() {
 
     private val _wordPackageLiveData: MutableLiveData<WordPackage> =

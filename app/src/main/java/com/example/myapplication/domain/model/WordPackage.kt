@@ -2,6 +2,7 @@ package com.example.myapplication.domain.model
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
+import java.util.Collections.swap
 
 /**
  *  пакет, хранящий карточки
@@ -17,5 +18,18 @@ data class WordPackage(
     var name: String,
     var frontLanguage: String,
     var backLanguage: String,
-    var wordPairList: List<WordPair>
-) : Parcelable
+    var wordPairList: List<WordPair>,
+    var isReversed: Boolean = false
+) : Parcelable {
+
+    fun reversePackage(): WordPackage {
+        return WordPackage(
+            id,
+            name,
+            backLanguage,
+            frontLanguage,
+            wordPairList.map { WordPair(it.backWord, it.frontWord, it.wordPackageOwnerId, it.wordPairId, it.answer) },
+            !isReversed
+        )
+    }
+}

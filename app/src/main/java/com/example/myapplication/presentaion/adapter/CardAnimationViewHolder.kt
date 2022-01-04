@@ -33,5 +33,6 @@ open  class CardAnimationViewHolder(view: View) : RecyclerView.ViewHolder(view) 
                     backWordView
                 )
             }
+
         }
     }

@@ -1,7 +1,6 @@
 package com.example.myapplication.presentaion.view
 
 import android.os.Bundle
-import android.os.RecoverySystem
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -9,22 +8,19 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.TextView
-import androidx.activity.viewModels
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.App
 import com.example.myapplication.R
-import com.example.myapplication.data.repository.WordRoomRepository
 import com.example.myapplication.domain.model.WordPackage
-import com.example.myapplication.domain.model.WordPair
 import com.example.myapplication.presentaion.adapter.WordPairListAdapter
 import com.example.myapplication.presentaion.model.WordPackageInfoModel
 import com.example.myapplication.presentaion.utils.ViewState
-import com.example.myapplication.presentaion.viewmodel.MainViewModel
 import com.example.myapplication.presentaion.viewmodel.WordPairListViewModel
-import java.lang.NullPointerException
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
 
 const val WORD_PACKAGE_ID = "WordPackageId"
@@ -33,12 +29,13 @@ const val SPAN_COUNT = 2
 interface WordPairActivity {
     fun showDialog()
 
-    fun checkKnowledgeButtonPressed()
+    fun checkKnowledgeButtonPressed(wordPackage: WordPackage)
 }
 
 /**
  * Фрагмент, отображающий список всех карточек в пакете
  */
+@ExperimentalCoroutinesApi
 class WordPairListFragment : Fragment() {
 
     @Inject
@@ -49,6 +46,7 @@ class WordPairListFragment : Fragment() {
 
     private lateinit var errorTextView: TextView
     private lateinit var progressView: ProgressBar
+    private lateinit var reversePackageButton: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -74,11 +72,15 @@ class WordPairListFragment : Fragment() {
         }
         val checkKnowledgeButton: Button = view.findViewById(R.id.check_knowledge_button)
         checkKnowledgeButton.setOnClickListener {
-            (activity as? WordPairActivity)?.checkKnowledgeButtonPressed()
+            (activity as? WordPairActivity)?.checkKnowledgeButtonPressed(wordPairListViewModel.wordPackageFlow.value)
                 ?: throw TypeCastException("Cannot cast activity to interface!")
         }
         errorTextView = view.findViewById(R.id.error_text_view)
         progressView = view.findViewById(R.id.progress_view)
+        reversePackageButton = view.findViewById(R.id.reverse_package)
+        reversePackageButton.setOnClickListener {
+            wordPairListViewModel.reversePackage()
+        }
         setWordPairListObserver()
         setViewStateObserver()
         return view
@@ -98,18 +100,17 @@ class WordPairListFragment : Fragment() {
      * Сеттинг обсервера, следящего за обновлением карточек
      */
     private fun setWordPairListObserver() {
-        val observer = Observer<WordPackage> { wordPackage ->
+        wordPairListViewModel.wordPackageFlow.onEach { wordPackage ->
             wordPairListAdapter.changeData(wordPackage.wordPairList)
             titleTextView.text = resources.getString(R.string.title_package_text, wordPackage.name)
-        }
-        wordPairListViewModel.wordListPackage.observe(viewLifecycleOwner, observer)
+        }.launchIn(lifecycleScope)
     }
 
     /**
      * Сеттинг обсервера, следящего за состоянием view
      */
     private fun setViewStateObserver() {
-        val observer = Observer<ViewState> { viewstate ->
+        wordPairListViewModel.loadViewStateFlow.onEach { viewstate ->
             when (viewstate) {
                 ViewState.ERROR -> {
                     errorTextView.visibility = View.VISIBLE
@@ -124,7 +125,6 @@ class WordPairListFragment : Fragment() {
                     progressView.visibility = View.GONE
                 }
             }
-        }
-        wordPairListViewModel.loadViewStateLiveData.observe(viewLifecycleOwner, observer)
+        }.launchIn(lifecycleScope)
     }
 }

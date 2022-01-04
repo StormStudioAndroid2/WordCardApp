@@ -85,7 +85,6 @@ class WordPairCardFragment : Fragment(), CardStackListener {
     }
 
     override fun onCardRewound() {
-
     }
 
     override fun onCardCanceled() {

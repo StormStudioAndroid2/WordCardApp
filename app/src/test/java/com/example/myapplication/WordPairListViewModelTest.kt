@@ -3,17 +3,13 @@ package com.example.myapplication
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
 import com.example.myapplication.data.repository.IWordRepository
-import com.example.myapplication.domain.model.AnswerType
 import com.example.myapplication.domain.model.WordPackage
-import com.example.myapplication.domain.model.WordPair
 import com.example.myapplication.presentaion.utils.ViewState
 import com.example.myapplication.presentaion.viewmodel.WordPairListViewModel
-import com.yuyakaido.android.cardstackview.Direction
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.TestCoroutineDispatcher
 import kotlinx.coroutines.test.setMain
-import org.junit.Assert
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -52,7 +48,7 @@ class WordPairListViewModelTest {
         MockitoAnnotations.initMocks(this)
         Dispatchers.setMain(testDispatcher)
         wordPairListViewModel = WordPairListViewModel(repository)
-        wordPairListViewModel.wordListPackage.observeForever(wordPackageObserver)
+        wordPairListViewModel.wordPackageFlow.observeForever(wordPackageObserver)
         wordPairListViewModel.loadViewStateLiveData.observeForever(loadDataObserver)
     }
 

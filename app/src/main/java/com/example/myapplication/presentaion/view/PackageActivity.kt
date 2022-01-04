@@ -20,7 +20,7 @@ import com.example.myapplication.presentaion.utils.ViewState
 import com.example.myapplication.presentaion.viewmodel.PackageViewModel
 import javax.inject.Inject
 
-private const val PACKAGE_ID_TAG = "PackageIdTag"
+const val PACKAGE_ID_TAG = "PackageIdTag"
 private const val WORD_LIST_FRAGMENT = "WordListFragment"
 private const val WORD_STACK_FRAGMENT = "WordStackFragment"
 private const val WORD_STATISTIC_FRAGMENT = "WordStatisticFragment"
@@ -45,6 +45,7 @@ class PackageActivity : AppCompatActivity(), WordPairActivity, CreateWordPairCal
         errorTextView = findViewById(R.id.error_text_view)
         progressView = findViewById(R.id.progress_view)
         (application as App).appComponent.packageComponent().create().inject(this)
+
         packageViewModel.loadPackage(intent.getLongExtra(PACKAGE_ID_TAG, -1))
         setViewStateObserver()
         setPackageWithWordsObserver()
@@ -67,8 +68,7 @@ class PackageActivity : AppCompatActivity(), WordPairActivity, CreateWordPairCal
     /**
      * Нажатие на кнопку для проверки знаний
      */
-    override fun checkKnowledgeButtonPressed() {
-        packageViewModel.wordPackageLiveData.value?.let { wordPackage ->
+    override fun checkKnowledgeButtonPressed(wordPackage: WordPackage) {
             if (wordPackage.wordPairList.isNotEmpty()) {
                 supportFragmentManager.beginTransaction()
                     .replace(
@@ -78,7 +78,6 @@ class PackageActivity : AppCompatActivity(), WordPairActivity, CreateWordPairCal
                     )
                     .commit()
             }
-        }
     }
 
     /**

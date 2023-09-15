@@ -1,6 +1,6 @@
 # WordCardApp
 
-## Технологии
+## FrameWorks
 * Room
 * Coroutines
 * Kotlin Flow
@@ -8,9 +8,6 @@
 * MVVM, LiveData
 * Kotlin
 * ConstraintLayout
-## О приложении
-Приложение предназначено для изучения иностранных языков. С его помощью можно создавать наборы карточек, на одной стороне 
-которой написано слово на родном языке, на другом - на иностранном. Есть функция проверки знаний, при которой можно проверять, сколько карточек выучил/не выучил.
-Что реализовано: Broadcast Receiver, напоминающий, что нужно повторить слова, темная тема, основные механики
-## Что планируется добавить:
-* Доступ к карточкам с интернет API, возможность скачивания уже готовых
+## About application
+This application is created for studying foreign languages. You can create sets of cards for studying new words and definitions. You also get notification that reminds you repeat words. 
+Now at this application are implemented Notification, Dark Theme, BroadcastReseiver.
